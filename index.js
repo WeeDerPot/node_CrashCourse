@@ -1,13 +1,19 @@
-const personObjektum = require('./person');
-const dataObjektum = require('./data');
+const http = require('http');
+const path = require('path');
+const fs = require('fs');
 
-const szemely = new personObjektum.Figura('Zsákos Bilbo', 130);
+const server = http.createServer((req, res) => {
+    if (req.url == '/') {
+        fs.readFile(path.join(__dirname, 'public', 'index.html'),
+        (err, content) => {
+        
+        }
+        
+    )}
+    res.write('<h1>Hello Worlds!</h1>')
+    res.end();
+});
 
-szemely.greetings();
+const PORT = process.env.PORT || 5000;
 
-personObjektum.feldolgoz();
-
-personObjektum.kiir();
-console.log(`A szám: ${personObjektum.szam}`);
-
-console.log(`Nemrég elhunyt színész: ${dataObjektum.adatTomb[0]}, kora ${dataObjektum.adatTomb[1]}`);
+server.listen(PORT, () => console.log('A szerver működik...'));
